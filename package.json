@@ -1,0 +1,21 @@
+{
+  "name": "odin-knights-travails",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bst.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lemuller04/odin-knights-travails.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lemuller04/odin-knights-travails/issues"
+  },
+  "homepage": "https://github.com/Lemuller04/odin-knights-travails#readme",
+  "type": "module"
+}
