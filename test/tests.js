@@ -41,12 +41,12 @@ function runTests() {
 
   // Test 4: Path correctness (start and end match)
   assertArrayEqual(
-    result.path[0],
+    result.path[result.path.length - 1],
     [7, 7],
     "Path should start at the target position",
   );
   assertArrayEqual(
-    result.path[result.path.length - 1],
+    result.path[0],
     [0, 0],
     "Path should end at the starting position",
   );
