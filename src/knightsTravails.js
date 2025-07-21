@@ -1,5 +1,3 @@
-import Tree from "./Tree.js";
-
 const Knight = () => {
   const directions = [
     [-2, 1],
