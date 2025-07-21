@@ -47,7 +47,7 @@ This will execute ```node test/tests.js``` and report pass/fail status in the co
 
 ## Algorithm
 
-- Represent positions as ```[x, y]``` pais on a zero-indexed 8x8 grid.
+- Represent positions as ```[x, y]``` pairs on a zero-indexed 8x8 grid.
 - BFS queue: Enqueue the starting node, tracking its parent for path reconstruction.
 - Visited set: Prevent revisiting squares and infinite loops.
 - Traverse neighbors: At each step, generate up to eight valid knight moves, enqueue unseen positions, and mark them visited.
