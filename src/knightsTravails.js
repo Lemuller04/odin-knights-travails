@@ -1,3 +1,5 @@
+import Tree from "./Tree.js";
+
 const Knight = () => {
   const errors = {
     missingArgument: `Missing function arguments. ( knightMoves([x, y], [x, y]) )`,
@@ -7,6 +9,11 @@ const Knight = () => {
     outOfBounds: `Numbers must be between 0 and 7 (board bounds)`,
   };
 
+  function comparator(a, b) {
+    if (a.position[0] !== b.position[0]) return a.position[0] - b.position[0];
+    return a.position[1] - b.position[1];
+  }
+
   function knightMoves(from, to) {
     if (!from || !to) {
       throw new Error(errors.missingArgument);
@@ -15,37 +22,82 @@ const Knight = () => {
     from = validatePosition(from);
     to = validatePosition(to);
 
-    const tree = Tree();
-    const queue = [from];
+    const queue = [{ position: from, parent: null }];
+
+    // Tree will store objects like: { position: [x, y], parent: [x, y] }
+    const tree = Tree([], comparator);
 
     while (queue.length > 0) {
       let current = queue.shift();
-      tree.insert(current);
 
-      let possibilities = [
-        [current[0] - 2, current[1] - 1],
-        [current[0] - 2, current[1] + 1],
-        [current[0] - 1, current[1] - 2],
-        [current[0] - 1, current[1] + 2],
-        [current[0] + 1, current[1] - 2],
-        [current[0] + 1, current[1] + 2],
-        [current[0] + 2, current[1] - 1],
-        [current[0] + 2, current[1] + 1],
-      ];
+      if (isSamePosition(current, to)) {
+        const result = makeResult(current);
+
+        console.log(`You made it in ${result.moves} moves! Here's your path:`);
+        for (let i = result.path.length - 1; i >= 0; i--) {
+          console.log(result.path[i]);
+        }
+
+        return result;
+      }
+
+      const possibilities = generateKnightMoves(
+        current.position[0],
+        current.position[1],
+      );
 
       for (let possibilitie of possibilities) {
         try {
           validatePosition(possibilitie);
-          if (!tree.find(possibilitie)) {
-            queue.push(possibilitie);
+          const obj = {
+            position: possibilitie,
+            parent: current,
+          };
+          if (!tree.contains(obj)) {
+            tree.insert(obj);
+            queue.push(obj);
           }
         } catch {
           continue;
         }
       }
     }
+  }
 
-    tree.prettyPrint();
+  function makeResult(current) {
+    let counter = 0;
+    const path = [];
+    while (current.parent) {
+      counter++;
+      path.push(current.position);
+      current = current.parent;
+    }
+    path.push(current.position);
+
+    return {
+      path: path,
+      moves: counter,
+    };
+  }
+
+  function generateKnightMoves(x, y) {
+    return [
+      [x - 2, y + 1],
+      [x - 2, y - 1],
+      [x - 1, y + 2],
+      [x - 1, y - 2],
+      [x + 1, y + 2],
+      [x + 1, y - 2],
+      [x + 2, y + 1],
+      [x + 2, y - 1],
+    ];
+  }
+
+  function isSamePosition(positionObj, coords) {
+    return (
+      positionObj.position[0] === coords[0] &&
+      positionObj.position[1] === coords[1]
+    );
   }
 
   function validatePosition(arr) {

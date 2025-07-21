@@ -104,6 +104,10 @@ const Tree = (initialArray = [], comparator) => {
       : find(value, node.right);
   }
 
+  function contains(value, node = treeRoot) {
+    return find(value) ? true : false;
+  }
+
   function levelOrderForEach(callback, node = null) {
     if (typeof callback !== "function") {
       throw new Error("Callback function is required");
@@ -214,6 +218,7 @@ const Tree = (initialArray = [], comparator) => {
     insert,
     deleteItem,
     find,
+    contains,
     levelOrderForEach,
     inOrderForEach,
     postOrderForEach,
