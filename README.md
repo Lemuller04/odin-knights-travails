@@ -14,7 +14,7 @@ Because every board square is treated as a graph node and each legal knight move
 ## Instalation
 
 ```bash
-git clone https://github.com/Lemluller04/odin-knights-travails.git
+git clone https://github.com/Lemuller04/odin-knights-travails.git
 cd odin-knights-travails
 ```
 
